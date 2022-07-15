@@ -13,7 +13,9 @@ const DB = "mongodb+srv://prime:JacobTUTU@cluster0.ey3vg.mongodb.net/?retryWrite
 
 //middleware
 //CLIENT -> SERVER -> CLIENT
+app.use(express.json());
 app.use(authRouter);
+
 
 //connections
 mongoose.connect(DB).then(() => {
