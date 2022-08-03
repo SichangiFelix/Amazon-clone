@@ -5,6 +5,7 @@ import 'package:amazon_clone/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'common/bottom_bar.dart';
 import 'features/auth/screens/auth_screen.dart';
 
 void main() {
@@ -27,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 final AuthService authService = AuthService();
   @override
   void initState() {
-    
+    authService.getUserData(context: context);
     super.initState();
   }
   // This widget is the root of your application.
@@ -49,7 +50,7 @@ final AuthService authService = AuthService();
         )
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const AuthScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty? const BottomBar() : const AuthScreen(),
     );
   }
 }
