@@ -1,4 +1,7 @@
+import 'package:amazon_clone/features/admin/screens/posts_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../../../constants/global_variables.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -8,8 +11,106 @@ class AdminScreen extends StatefulWidget {
 }
 
 class _AdminScreenState extends State<AdminScreen> {
+  int _page = 0;
+  double bottomBarWidth = 42;
+  double bottomBarBorderWidth = 5;
+
+  void updatePage(int page){
+  setState(() {
+    _page = page;
+  });
+}
+
+List<Widget> pages = [
+  const PostsScreen(),
+  const Center(
+    child: Text('Analytics Page'),
+  ),
+  const Center(
+    child: Text('Cart Page'),
+  ),
+];
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: pages[_page],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50),
+        child: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            Container(
+              alignment: Alignment.topLeft,
+              child: const Image(image: AssetImage('assets/images/amazon_in.png'),width:120, height:45,),
+            ),
+            const Text('Admin',
+              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, ),
+            ),
+          ]),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: GlobalVariables.appBarGradient,
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: updatePage,
+        items: [
+          //Posts
+          BottomNavigationBarItem(
+            icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(
+                color: _page == 0? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
+                width: bottomBarBorderWidth,
+              ),
+            ),
+          ),
+          child:const  Icon(Icons.home_outlined),
+          ),
+          label: '',
+          ),
+          //Analytics 
+          BottomNavigationBarItem(
+            icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(
+                color: _page == 1? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
+                width: bottomBarBorderWidth,
+              ),
+            ),
+          ),
+          child:const  Icon(Icons.analytics_outlined),
+          ),
+          label: '',
+          ),
+          //Orders
+          BottomNavigationBarItem(
+            icon: Container(
+            width: bottomBarWidth,
+            decoration: BoxDecoration(
+              border: Border(top: BorderSide(
+                color: _page == 2? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
+                width: bottomBarBorderWidth,
+              ),
+            ),
+          ),
+          child:const  Icon(Icons.all_inbox_outlined),
+          ),
+          label: '',
+          ),
+        ],
+        currentIndex: _page,
+        selectedItemColor: GlobalVariables.selectedNavBarColor,
+        unselectedItemColor: GlobalVariables.unselectedNavBarColor,
+        backgroundColor: GlobalVariables.backgroundColor,
+        iconSize: 28,
+        ),
+    );
   }
 }
