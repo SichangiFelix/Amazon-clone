@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import '../../../constants/global_variables.dart';
 import 'package:dotted_border/dotted_border.dart';
 
+import '../services/admin_services.dart';
+
 class AddProductsScreen extends StatefulWidget {
   static const String routeName = '/add-product';
   const AddProductsScreen({Key? key}) : super(key: key);
@@ -23,8 +25,11 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
 
+  final AdminServices adminServices = AdminServices();
+
   String category = 'Mobiles';
   List<File> images = [];
+  final _addProductFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -43,6 +48,12 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
     'Fashion'
   ];
 
+  void sellProduct(){
+    if(_addProductFormKey.currentState!.validate() && images.isNotEmpty){
+      adminServices.sellProduct(context: context, name: productNameController.text, description: descriptionController.text, price: double.parse(priceController.text), quantity: double.parse(quantityController.text), category: category, images: images);
+    }
+  }
+
   void selectImages() async {
     var res = await pickImages();
     setState(() {
@@ -55,6 +66,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
     return Scaffold(
       body: SingleChildScrollView(
           child: Form(
+            key: _addProductFormKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(children: [
@@ -156,7 +168,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
             const SizedBox(
               height: 10,
             ),
-            CustomButton(text: 'Sell', onTap: () {}),
+            CustomButton(text: 'Sell', onTap: sellProduct,),
           ]),
         ),
       )),
