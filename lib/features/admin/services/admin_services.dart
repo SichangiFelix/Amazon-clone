@@ -51,9 +51,9 @@ class AdminServices{
           );
 
           httpErrorHandle(response: res, context: context, onSuccess: (){
-            showSnackBar(context, 'Product added Successfully');
+            showSnackBar(context, 'Product added Successfully!');
             Navigator.pop(context);
-          });
+          },);
       }
       catch(e){
         showSnackBar(context, e.toString());
