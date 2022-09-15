@@ -82,7 +82,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                     child: DottedBorder(
                         borderType: BorderType.RRect,
                         radius: const Radius.circular(10),
-                        dashPattern: [10, 4],
+                        dashPattern: const [10, 4],
                         strokeCap: StrokeCap.round,
                         child: Container(
                           width: double.infinity,
@@ -147,8 +147,8 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                 icon: const Icon(Icons.keyboard_arrow_down),
                 items: productCategories.map((item) {
                   return DropdownMenuItem(
-                    child: Text(item),
                     value: item,
+                    child: Text(item),
                   );
                 }).toList(),
               ),

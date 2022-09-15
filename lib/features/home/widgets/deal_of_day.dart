@@ -14,20 +14,20 @@ class _DealOfDayState extends State<DealOfDay> {
       children: [
         Container(
           alignment: Alignment.topLeft,
-          padding: EdgeInsets.only(left: 10, top: 15),
+          padding: const EdgeInsets.only(left: 10, top: 15),
           child: const Text('Deal of the day',
             style: TextStyle(fontSize: 20),
           ),
         ),
         Image.network('https://images.unsplash.com/photo-1621330396173-e41b1cafd17f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGhvbmVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60', height: 235, fit: BoxFit.fitHeight,),
         Container(
-          padding: EdgeInsets.only(left: 15, top: 5, right: 40),
+          padding: const EdgeInsets.only(left: 15, top: 5, right: 40),
           alignment: Alignment.topLeft,
           child: const Text('\$100', style: TextStyle(fontSize: 18),),
         ),
         Container(
           alignment: Alignment.topLeft,
-            padding: EdgeInsets.only(left: 15, top: 5, right: 40),
+            padding: const EdgeInsets.only(left: 15, top: 5, right: 40),
             child: const Text('Prime', 
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

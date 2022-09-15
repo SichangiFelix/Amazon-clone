@@ -22,13 +22,13 @@ class AddressBox extends StatelessWidget {
           stops: [0.5, 1.0],
         )
       ),
-      padding: EdgeInsets.only(left: 10),
+      padding: const EdgeInsets.only(left: 10),
       child: Row(
         children: [
         const Icon(Icons.location_on_outlined, size: 20,),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left:5),
+            padding: const EdgeInsets.only(left:5),
             child: Text('Delivery to ${user.name} - ${user.address}',
               style: const TextStyle(
                 fontWeight: FontWeight.w500,
@@ -37,7 +37,7 @@ class AddressBox extends StatelessWidget {
             ),
         ),
         ),
-        Padding(padding: EdgeInsets.only(left: 5, top: 2,),
+        const Padding(padding: EdgeInsets.only(left: 5, top: 2,),
           child: Icon(Icons.arrow_drop_down_outlined, size: 18,),
         ),
       ]
