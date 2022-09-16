@@ -34,6 +34,7 @@ final AdminServices adminServices = AdminServices();
 
   @override
   Widget build(BuildContext context) {
+    print(products!.length);
     return products == null? const Loader() : Scaffold(
       body: GridView.builder(
         itemCount: products!.length,
