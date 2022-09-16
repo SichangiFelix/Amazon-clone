@@ -36,7 +36,7 @@ List<Widget> pages = [
     return Scaffold(
       body: pages[_page],
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(50),
         child: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

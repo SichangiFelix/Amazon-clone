@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:amazon_clone/constants/error_handling.dart';
@@ -11,7 +12,8 @@ import '../../../models/product.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../provider/user_provider.dart';
-class AdminServices{
+
+class AdminServices {
   void sellProduct({
     required BuildContext context,
     required String name,
@@ -22,41 +24,68 @@ class AdminServices{
     required List<File> images,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-      try{
-        final cloudinary = CloudinaryPublic('duvsjbcz8','fjq9e3f6');
-        List<String> imageUrls = [];
+    try {
+      final cloudinary = CloudinaryPublic('duvsjbcz8', 'fjq9e3f6');
+      List<String> imageUrls = [];
 
-        for(int i=0; i<images.length ;i++){
-          CloudinaryResponse res = await cloudinary.uploadFile(
-            CloudinaryFile.fromFile(images[i].path, folder: name),
-          );
-          imageUrls.add(res.secureUrl);
-        }
-        Product product = Product(
-          name: name,
-          description: description,
-          quantity: quantity,
-          images: imageUrls,
-          category: category,
-          price: price,
+      for (int i = 0; i < images.length; i++) {
+        CloudinaryResponse res = await cloudinary.uploadFile(
+          CloudinaryFile.fromFile(images[i].path, folder: name),
         );
-
-        http.Response res = await http.post(
-            Uri.parse('$uri/admin/add-product'), 
-            headers: {
-              'Content-Type': 'application/json; charset=UTF-8',
-              'x-auth-token': userProvider.user.token,
-            },
-            body: product.toJson(),
-          );
-
-          httpErrorHandle(response: res, context: context, onSuccess: (){
-            showSnackBar(context, 'Product added Successfully!');
-            Navigator.pop(context);
-          },);
+        imageUrls.add(res.secureUrl);
       }
-      catch(e){
-        showSnackBar(context, e.toString());
-      }
+      Product product = Product(
+        name: name,
+        description: description,
+        quantity: quantity,
+        images: imageUrls,
+        category: category,
+        price: price,
+      );
+
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/add-product'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: product.toJson(),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Product added Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //get all the products
+  Future<List<Product>> fetchAllProducts(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Product> productList = [];
+    try {
+      http.Response res = await http.get(
+        Uri.parse('$uri/admin/get-products'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+
+      httpErrorHandle(response: res, context: context, onSuccess: (){
+        for(int i = 0; i<jsonDecode(res.body).length;i++){
+          productList.add(Product.fromJson(jsonEncode(jsonDecode(res.body[i]))));
+        }
+      });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return productList;
   }
 }

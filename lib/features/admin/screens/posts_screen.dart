@@ -1,6 +1,11 @@
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/loader.dart';
+import '../../../models/product.dart';
+import '../../account/widget/single_product.dart';
+import '../services/admin_services.dart';
+
 class PostsScreen extends StatefulWidget {
   const PostsScreen({Key? key}) : super(key: key);
 
@@ -9,15 +14,55 @@ class PostsScreen extends StatefulWidget {
 }
 
 class _PostsScreenState extends State<PostsScreen> {
+  List<Product>? products;
+final AdminServices adminServices = AdminServices();
 
   void navigateToAddProduct(){
     Navigator.pushNamed(context, AddProductsScreen.routeName);
   }
 
   @override
+  void initState() {
+    fetchAllProducts();
+    super.initState();
+  }
+
+  fetchAllProducts() async {
+    products = await adminServices.fetchAllProducts(context);
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Center(child: Text('Products')),
+    return products == null? const Loader() : Scaffold(
+      body: GridView.builder(
+        itemCount: products!.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index){
+        final productData = products![index];
+        return Column(
+          children: [
+            SizedBox(
+              height: 140,
+              child: SingleProduct(
+                imagePath: productData.images[0],
+              ),
+            ),
+            Row(
+               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Text(productData.name, 
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  ),
+                ),
+                IconButton(onPressed: (){}, icon: const Icon(Icons.delete_outline)),
+              ],
+            ),
+          ],
+        );
+      }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add a Product',
