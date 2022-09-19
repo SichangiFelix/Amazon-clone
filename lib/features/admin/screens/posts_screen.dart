@@ -17,6 +17,17 @@ class _PostsScreenState extends State<PostsScreen> {
   List<Product>? products;
 final AdminServices adminServices = AdminServices();
 
+void deleteProduct( Product product, int index){
+  adminServices.deleteProduct(
+    context: context, 
+    product: product, 
+    onSuccess: (){
+      setState(() {
+        products!.removeAt(index);
+      });
+    });
+}
+
   void navigateToAddProduct(){
     Navigator.pushNamed(context, AddProductsScreen.routeName);
   }
@@ -34,7 +45,6 @@ final AdminServices adminServices = AdminServices();
 
   @override
   Widget build(BuildContext context) {
-    print(products!.length);
     return products == null? const Loader() : Scaffold(
       body: GridView.builder(
         itemCount: products!.length,
@@ -58,7 +68,9 @@ final AdminServices adminServices = AdminServices();
                   maxLines: 2,
                   ),
                 ),
-                IconButton(onPressed: (){}, icon: const Icon(Icons.delete_outline)),
+                IconButton(onPressed: (){
+                  deleteProduct(productData, index);
+                }, icon: const Icon(Icons.delete_outline)),
               ],
             ),
           ],
