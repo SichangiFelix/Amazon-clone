@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:amazon_clone/common/custom_button.dart';
-import 'package:amazon_clone/common/custom_textfield.dart';
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/widgets/custom_button.dart';
+import '../../../common/widgets/custom_textfield.dart';
 import '../../../constants/global_variables.dart';
 import 'package:dotted_border/dotted_border.dart';
 

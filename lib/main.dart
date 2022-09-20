@@ -6,7 +6,7 @@ import 'package:amazon_clone/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'common/bottom_bar.dart';
+import 'common/widgets/bottom_bar.dart';
 import 'features/auth/screens/auth_screen.dart';
 
 void main() {

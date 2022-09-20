@@ -1,7 +1,7 @@
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/loader.dart';
+import '../../../common/widgets/loader.dart';
 import '../../../models/product.dart';
 import '../../account/widget/single_product.dart';
 import '../services/admin_services.dart';

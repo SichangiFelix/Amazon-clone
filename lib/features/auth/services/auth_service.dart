@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../common/bottom_bar.dart';
+import '../../../common/widgets/bottom_bar.dart';
 import '../../../constants/global_variables.dart';
 import '../../../models/user.dart';
 import 'package:http/http.dart' as http;
