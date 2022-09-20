@@ -1,7 +1,7 @@
 import 'package:amazon_clone/features/home/services/home_services.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/loader.dart';
+import '../../../common/widgets/loader.dart';
 import '../../../constants/global_variables.dart';
 import '../../../models/product.dart';
 

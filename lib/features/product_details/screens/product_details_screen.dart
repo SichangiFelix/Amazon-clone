@@ -1,33 +1,31 @@
-import 'package:amazon_clone/features/search/screens/search_screen.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:flutter/src/foundation/key.dart';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants/global_variables.dart';
-import '../../../provider/user_provider.dart';
-import '../widgets/address_box.dart';
-import '../widgets/carousel_image.dart';
-import '../widgets/deal_of_day.dart';
-import '../widgets/top_categories.dart';
+import '../../../models/product.dart';
+import '../../search/screens/search_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class ProductDetailsScreen extends StatefulWidget {
 
-  static const String routeName = '/home';
-  
-  const HomeScreen({Key? key}) : super(key: key);
+  static const String routeName = '/product-details';
+  final Product product;
+  const ProductDetailsScreen({Key? key, required this.product}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   void navigateToSearchScreen(String query){
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -82,20 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
               gradient: GlobalVariables.appBarGradient,
             ),
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: const [
-            AddressBox(),
-            SizedBox(
-              height: 10,
-            ),
-            TopCategories(),
-            SizedBox(height: 10,),
-            CarouselImage(),
-            DealOfDay(),
-          ],
         ),
       ),
     );
