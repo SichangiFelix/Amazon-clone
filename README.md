@@ -1,4 +1,4 @@
-This project is an Amazon clone built using flutter and nodejs.
+This project is an Amazon clone built using Flutter and Nodejs.
 
 In this project I 
 -Build the UI of Amazon from scratch. 
