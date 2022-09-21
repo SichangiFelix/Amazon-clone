@@ -1,4 +1,5 @@
 import 'package:amazon_clone/features/home/widgets/address_box.dart';
+import 'package:amazon_clone/features/product_details/screens/product_details_screen.dart';
 import 'package:amazon_clone/features/search/services/search_services.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +31,9 @@ final searchServices = SearchServices();
 
   fetchSearchedProduct() async{
     products = await searchServices.fetchSearchedProduct(context: context, searchQuery: widget.searchQuery);
-    print(products!);
-    print(products!.length);
+    setState(() {
+      
+    });
   }
 
   void navigateToSearchScreen(String query){
@@ -105,7 +107,11 @@ final searchServices = SearchServices();
             child: ListView.builder(
               itemCount: products!.length,
               itemBuilder: (context, index){
-                return SearchedProduct(product: products![index]);
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, ProductDetailsScreen.routeName, arguments: products![index]);
+                  },
+                  child: SearchedProduct(product: products![index]));
             }),
           ),
         ],
