@@ -31,6 +31,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
+  void addToCart(){
+    productDetailsServices.addToCart(context: context, product: widget.product);
+  }
+
 double avgRating = 0;
 double myRating = 0;
 
@@ -192,7 +196,7 @@ double myRating = 0;
               ),
               Padding(
               padding: const EdgeInsets.all(10),
-              child: CustomButton(text: 'Add to Cart', onTap: (){}, color: const Color.fromRGBO(254, 216, 19, 1),)),
+              child: CustomButton(text: 'Add to Cart', onTap: addToCart, color: const Color.fromRGBO(254, 216, 19, 1),)),
               const SizedBox(height: 10,),
               Container(
               color: Colors.black12,

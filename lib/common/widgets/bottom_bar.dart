@@ -3,6 +3,9 @@ import 'package:amazon_clone/features/account/screens/account_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/user_provider.dart';
 
 class BottomBar extends StatefulWidget {
 
@@ -33,6 +36,9 @@ List<Widget> pages = [
 
   @override
   Widget build(BuildContext context) {
+
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
+
     return Scaffold( 
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
@@ -82,7 +88,7 @@ List<Widget> pages = [
           child:Badge(
             elevation: 0,
             badgeColor: Colors.white,
-            badgeContent: const Text('2'),
+            badgeContent: Text(userCartLen.toString()),
             child: const  Icon(Icons.shopping_cart_outlined)),
           ),
           label: '',

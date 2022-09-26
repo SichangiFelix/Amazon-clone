@@ -28,7 +28,9 @@ class AuthService {
           password: password,
           address: '',
           type: '',
-          token: '');
+          token: '',
+          cart: [],
+          );
 
       http.Response res = await http.post(
         Uri.parse('$uri/api/signup'),
@@ -75,8 +77,10 @@ class AuthService {
         context: context,
         onSuccess: () async {
           final prefs = await SharedPreferences.getInstance();
+          // ignore: use_build_context_synchronously
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
+          // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(context, BottomBar.routeName, (route) => false);
         },
       );
@@ -126,6 +130,7 @@ class AuthService {
       },
       );
 
+      // ignore: use_build_context_synchronously
       var userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.setUser(userRes.body);
     }
