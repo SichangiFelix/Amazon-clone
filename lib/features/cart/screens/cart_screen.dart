@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../constants/global_variables.dart';
 import '../../../provider/user_provider.dart';
 import '../../search/screens/search_screen.dart';
+import '../widgets/cart_product.dart';
 import '../widgets/cart_subtotal.dart';
 
 class CartScreen extends StatefulWidget {
@@ -88,35 +89,35 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          const AddressBox(),
-          const CartSubtotal(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomButton(
-              text: 'Proceed to buy (${user.cart.length}  items)',
-              onTap: () {},
-              color: Colors.yellow,
-            ),
+      body: Column(children: [
+        const AddressBox(),
+        const CartSubtotal(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CustomButton(
+            text: 'Proceed to buy (${user.cart.length}  items)',
+            onTap: () {},
+            color: Colors.yellow,
           ),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            color: Colors.black12.withOpacity(0.08),
-            height: 1,
-          ),
-          const SizedBox(
-            height:5,
-          ),
-          ListView.builder(
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Container(
+          color: Colors.black12.withOpacity(0.08),
+          height: 1,
+        ),
+        const SizedBox(
+          height:5,
+        ),
+        Expanded(
+          child: user.cart.isEmpty ? const Center(child: Text('Add Items to cart')): ListView.builder(
             itemCount: user.cart.length,
             itemBuilder: (context, index) {
-            return const Text('test');
+            return CartProduct(index: index,);
           }),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }
