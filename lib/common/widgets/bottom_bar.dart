@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
 
+import '../../features/cart/screens/cart_screen.dart';
 import '../../provider/user_provider.dart';
 
 class BottomBar extends StatefulWidget {
@@ -31,7 +32,7 @@ void updatePage(int page){
 List<Widget> pages = [
   const HomeScreen(),
   const AccountScreen(),
-  const Center(child: Text('Cart Page'),),
+  const CartScreen(),
 ];
 
   @override
@@ -79,7 +80,8 @@ List<Widget> pages = [
             icon: Container(
             width: bottomBarWidth,
             decoration: BoxDecoration(
-              border: Border(top: BorderSide(
+              border: Border(
+                top: BorderSide(
                 color: _page == 2? GlobalVariables.selectedNavBarColor : GlobalVariables.backgroundColor,
                 width: bottomBarBorderWidth,
               ),
