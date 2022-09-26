@@ -43,7 +43,7 @@ final HomeServices homeServices = HomeServices();
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
           title: Text(widget.category, 
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
             ),
           ),

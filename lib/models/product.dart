@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:amazon_clone/models/user.dart';
 
 import 'rating.dart';
 
