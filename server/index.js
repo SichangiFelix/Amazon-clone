@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const adminRouter = require("./routes/admin");
 const productRouter = require("./routes/product");
+const userRouter = require("./routes/user");
 
 //Imports from other files
 const authRouter = require("./routes/auth");
