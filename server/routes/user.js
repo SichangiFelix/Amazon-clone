@@ -1,13 +1,15 @@
 const express = require ("express");
 const userRouter = express.Router();
 const auth = require('../middlewares/auth');
+const {Product} = require("../models/product");
+const User = require("../models/user");
 
 
 userRouter.post("/api/add-to-cart", auth, async (req, res) => {
     try{
         const {id} = req.body;
-        const product = await product.findById(id);
-        let user = User.findById(req.body);
+        const product = await Product.findById(id);
+        let user = await User.findById(req.user);
 
         if(user.cart.length == 0){
             user.cart.push({product, quantity: 1});
