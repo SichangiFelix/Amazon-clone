@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_textfield.dart';
 import '../../../constants/global_variables.dart';
 import '../../../provider/user_provider.dart';
