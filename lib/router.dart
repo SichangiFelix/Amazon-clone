@@ -6,6 +6,7 @@ import 'package:amazon_clone/features/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'common/widgets/bottom_bar.dart';
+import 'features/address/screens/address_screen.dart';
 import 'features/home/screens/home_screen.dart';
 import 'models/product.dart';
 
@@ -48,6 +49,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => ProductDetailsScreen(product: product,),
+      );
+    case AddressScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddressScreen(),
       );
     default:
       return MaterialPageRoute(
