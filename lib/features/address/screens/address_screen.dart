@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/address/services/address_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,8 +43,29 @@ class _AddressScreenState extends State<AddressScreen> {
     super.dispose();
   }
 
-  void onApplePayResult(res) {}
-  void onGooglePayResult(res) {}
+  void onApplePayResult(res) {
+    if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+    addressServices.placeOrder(
+      context: context,
+      address: addressToBeUsed,
+      totalSum: double.parse(widget.totalAmount),
+    );
+  }
+
+  void onGooglePayResult(res) {
+     if (Provider.of<UserProvider>(context, listen: false).user.address.isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+    addressServices.placeOrder(
+      context: context,
+      address: addressToBeUsed,
+      totalSum: double.parse(widget.totalAmount),
+    );
+  }
 
   void payPressed(String addressFromProvider) {
     addressToBeUsed = "";
@@ -57,20 +79,20 @@ class _AddressScreenState extends State<AddressScreen> {
       if (_addressFormKey.currentState!.validate()) {
         addressToBeUsed =
             '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text},';
-      }else{
+      } else {
         throw Exception('Please enter all the values!');
       }
+    } else if (addressFromProvider.isNotEmpty) {
+      addressToBeUsed = addressFromProvider;
+    } else {
+      showSnackBar(context, 'ERROR');
     }
-      else if(addressFromProvider.isNotEmpty){
-        addressToBeUsed = addressFromProvider;
-      }
-      else{
-        showSnackBar(context, 'ERROR');
-      }
-    }
+  }
 
   String addressToBeUsed = '';
   List<PaymentItem> paymentItems = [];
+  final addressServices = AddressServices();
+
   @override
   Widget build(BuildContext context) {
     var address = context.watch<UserProvider>().user.address;
@@ -168,7 +190,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 paymentItems: paymentItems,
                 margin: const EdgeInsets.only(top: 15),
                 height: 50,
-                onPressed: (){
+                onPressed: () {
                   payPressed(address);
                 },
               ),
@@ -176,7 +198,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 height: 10,
               ),
               GooglePayButton(
-                onPressed: (){
+                onPressed: () {
                   payPressed(address);
                 },
                 paymentConfigurationAsset: 'gpay.json',
