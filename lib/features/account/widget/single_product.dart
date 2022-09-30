@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SingleProduct extends StatelessWidget {
-
   final String imagePath;
-
-  const SingleProduct({Key? key,
-    required this.imagePath
+  const SingleProduct({
+    Key? key,
+    required this.imagePath,
   }) : super(key: key);
 
   @override
@@ -14,15 +13,22 @@ class SingleProduct extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black12, width: 1.5),
+          border: Border.all(
+            color: Colors.black12,
+            width: 1.5,
+          ),
           borderRadius: BorderRadius.circular(5),
-          color: Colors.white,       
-         ),
-         child: Container(
+          color: Colors.white,
+        ),
+        child: Container(
           width: 180,
           padding: const EdgeInsets.all(10),
-          child: Image.network(imagePath, fit: BoxFit.fitHeight, width: 180,),
-         ),
+          child: Image.network(
+            imagePath,
+            fit: BoxFit.fitHeight,
+            width: 180,
+          ),
+        ),
       ),
     );
   }
