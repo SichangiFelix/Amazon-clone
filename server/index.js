@@ -9,7 +9,7 @@ const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 
 //Init
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const DB = "mongodb+srv://prime:JacobTUTU@cluster0.ey3vg.mongodb.net/?retryWrites=true&w=majority"
 
@@ -32,7 +32,7 @@ mongoose.connect(DB).then(() => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`connected at port ${PORT} Hey`);
+    console.log(`connected at port ${PORT}`);
 });
 
 
